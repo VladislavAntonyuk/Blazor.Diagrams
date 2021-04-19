@@ -17,7 +17,7 @@ namespace SharedDemo.Demos
             LayoutData.Info = "A very simple drag & drop implementation using the HTML5 events.";
             LayoutData.DataChanged();
 
-            _diagram.RegisterModelComponent<BotAnswerNode, BotAnswerWidget>();
+            _diagram.RegisterModelComponent(typeof(BotAnswerNode), typeof(BotAnswerWidget));
         }
 
         private void OnDragStart(int key)

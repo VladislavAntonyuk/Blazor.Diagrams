@@ -13,7 +13,7 @@ namespace SharedDemo.Demos
         {
             base.OnInitialized();
 
-            diagram.RegisterModelComponent<BotAnswerNode, BotAnswerWidget>();
+            diagram.RegisterModelComponent(typeof(BotAnswerNode), typeof(BotAnswerWidget));
 
             var node = new NodeModel(new Point(20, 20));
             node.AddPort(PortAlignment.Top);

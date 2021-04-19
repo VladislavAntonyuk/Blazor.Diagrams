@@ -16,7 +16,7 @@ namespace SharedDemo.Demos.CustomLink
             LayoutData.Info = "Creating your own custom links is very easy!";
             LayoutData.DataChanged();
 
-            _diagram.RegisterModelComponent<ThickLink, ThickLinkWidget>();
+            _diagram.RegisterModelComponent(typeof(ThickLink), typeof(ThickLinkWidget));
             // Also usable: _diagram.Options.Links.DefaultLinkComponent = typeof(ThickLink);
 
             var node1 = NewNode(50, 50);

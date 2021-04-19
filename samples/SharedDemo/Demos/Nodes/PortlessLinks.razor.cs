@@ -25,7 +25,7 @@ namespace SharedDemo.Demos.Nodes
 
         private void InitializeDiagram()
         {
-            _diagram.RegisterModelComponent<RoundedNode, RoundedNodeWidget>();
+            _diagram.RegisterModelComponent(typeof(RoundedNode), typeof(RoundedNodeWidget));
 
             var node1 = new NodeModel(new Point(80, 80), shape: Shapes.Rectangle);
             var node2 = new RoundedNode(new Point(280, 150), shape: Shapes.Circle);

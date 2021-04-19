@@ -16,7 +16,7 @@ namespace SharedDemo.Demos.CustomGroup
             LayoutData.Info = "Creating your own custom groups is very easy!";
             LayoutData.DataChanged();
 
-            _diagram.RegisterModelComponent<CustomGroupModel, CustomGroupWidget>();
+            _diagram.RegisterModelComponent(typeof(CustomGroupModel), typeof(CustomGroupWidget));
 
             var node1 = NewNode(50, 50);
             var node2 = NewNode(300, 300);
