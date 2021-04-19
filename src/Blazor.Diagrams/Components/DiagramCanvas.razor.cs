@@ -5,7 +5,13 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
+using KeyboardEventArgs = Microsoft.AspNetCore.Components.Web.KeyboardEventArgs;
+using MouseEventArgs = Microsoft.AspNetCore.Components.Web.MouseEventArgs;
+using TouchEventArgs = Microsoft.AspNetCore.Components.Web.TouchEventArgs;
+using TouchPoint = Blazor.Diagrams.Core.TouchPoint;
+using WheelEventArgs = Microsoft.AspNetCore.Components.Web.WheelEventArgs;
 
 namespace Blazor.Diagrams.Components
 {
@@ -63,21 +69,84 @@ namespace Blazor.Diagrams.Components
             return false;
         }
 
-        private void OnMouseDown(MouseEventArgs e) => Diagram.OnMouseDown(null, e);
+        private void OnMouseDown(MouseEventArgs e) => Diagram.OnMouseDown(null, new Core.MouseEventArgs()
+        {
+	        CtrlKey = e.CtrlKey,
+            ShiftKey = e.ShiftKey,
+            Button = e.Button,
+            ClientX = e.ClientX,
+            ClientY = e.ClientY
+        });
 
-        private void OnMouseMove(MouseEventArgs e) => Diagram.OnMouseMove(null, e);
+        private void OnMouseMove(MouseEventArgs e) => Diagram.OnMouseMove(null, new Core.MouseEventArgs()
+        {
+	        CtrlKey = e.CtrlKey,
+	        ShiftKey = e.ShiftKey,
+	        Button = e.Button,
+	        ClientX = e.ClientX,
+	        ClientY = e.ClientY
+        });
 
-        private void OnMouseUp(MouseEventArgs e) => Diagram.OnMouseUp(null, e);
+        private void OnMouseUp(MouseEventArgs e) => Diagram.OnMouseUp(null, new Core.MouseEventArgs()
+        {
+	        CtrlKey = e.CtrlKey,
+	        ShiftKey = e.ShiftKey,
+	        Button = e.Button,
+	        ClientX = e.ClientX,
+	        ClientY = e.ClientY
+        });
 
-        private void OnKeyDown(KeyboardEventArgs e) => Diagram.OnKeyDown(e);
+        private void OnKeyDown(KeyboardEventArgs e) => Diagram.OnKeyDown(new Core.KeyboardEventArgs(){AltKey = e.AltKey,
+	        Code = e.Code, CtrlKey = e.CtrlKey, Key = e.Key, ShiftKey = e.ShiftKey});
 
-        private void OnWheel(WheelEventArgs e) => Diagram.OnWheel(e);
+        private void OnWheel(WheelEventArgs e) => Diagram.OnWheel(new Core.WheelEventArgs(){ClientX = e.ClientX, ClientY = e.ClientY, DeltaY = e.DeltaY});
 
-        private void OnTouchStart(TouchEventArgs e) => Diagram.OnTouchStart(null, e);
+        private void OnTouchStart(TouchEventArgs e) => Diagram.OnTouchStart(null, new Core.TouchEventArgs()
+        {
+	        CtrlKey = e.CtrlKey, ShiftKey = e.ShiftKey,
+            ChangedTouches = e.ChangedTouches.Select(x=>new TouchPoint()
+            {
+                ClientY = x.ClientY,
+                ClientX = x.ClientX,
+                PageX = x.PageX,
+                PageY = x.PageY,
+                ScreenX = x.ScreenX,
+                ScreenY = x.ScreenY,
+                Identifier = x.Identifier
+            }).ToArray()
+        });
 
-        private void OnTouchMove(TouchEventArgs e) => Diagram.OnTouchMove(null, e);
+        private void OnTouchMove(TouchEventArgs e) => Diagram.OnTouchMove(null, new Core.TouchEventArgs()
+        {
+	        CtrlKey = e.CtrlKey,
+	        ShiftKey = e.ShiftKey,
+	        ChangedTouches = e.ChangedTouches.Select(x => new TouchPoint()
+	        {
+		        ClientY = x.ClientY,
+		        ClientX = x.ClientX,
+		        PageX = x.PageX,
+		        PageY = x.PageY,
+		        ScreenX = x.ScreenX,
+		        ScreenY = x.ScreenY,
+		        Identifier = x.Identifier
+	        }).ToArray()
+        });
 
-        private void OnTouchEnd(TouchEventArgs e) => Diagram.OnTouchEnd(null, e);
+        private void OnTouchEnd(TouchEventArgs e) => Diagram.OnTouchEnd(null, new Core.TouchEventArgs()
+        {
+	        CtrlKey = e.CtrlKey,
+	        ShiftKey = e.ShiftKey,
+	        ChangedTouches = e.ChangedTouches.Select(x => new TouchPoint()
+	        {
+		        ClientY = x.ClientY,
+		        ClientX = x.ClientX,
+		        PageX = x.PageX,
+		        PageY = x.PageY,
+		        ScreenX = x.ScreenX,
+		        ScreenY = x.ScreenY,
+		        Identifier = x.Identifier
+	        }).ToArray()
+        });
 
         private void OnDiagramChanged()
         {

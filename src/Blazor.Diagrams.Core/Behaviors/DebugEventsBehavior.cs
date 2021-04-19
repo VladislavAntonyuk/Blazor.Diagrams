@@ -1,7 +1,6 @@
 ﻿using Blazor.Diagrams.Core.Models;
 using Blazor.Diagrams.Core.Models.Base;
 using System;
-using System.Linq;
 
 namespace Blazor.Diagrams.Core.Behaviors
 {

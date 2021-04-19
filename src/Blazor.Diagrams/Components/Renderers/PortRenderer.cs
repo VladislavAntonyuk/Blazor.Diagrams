@@ -9,6 +9,8 @@ using Blazor.Diagrams.Extensions;
 using Blazor.Diagrams.Core.Geometry;
 using Microsoft.AspNetCore.Components.Rendering;
 using System.Linq;
+using MouseEventArgs = Microsoft.AspNetCore.Components.Web.MouseEventArgs;
+using TouchEventArgs = Blazor.Diagrams.Core.TouchEventArgs;
 
 namespace Blazor.Diagrams.Components.Renderers
 {
@@ -76,9 +78,23 @@ namespace Blazor.Diagrams.Components.Renderers
             }
         }
 
-        private void OnMouseDown(MouseEventArgs e) => Diagram.OnMouseDown(Port, e);
+        private void OnMouseDown(MouseEventArgs e) => Diagram.OnMouseDown(Port, new Core.MouseEventArgs()
+        {
+	        CtrlKey = e.CtrlKey,
+	        ClientX = e.ClientX,
+	        ClientY = e.ClientY,
+	        ShiftKey = e.ShiftKey,
+	        Button = e.Button
+        });
 
-        private void OnMouseUp(MouseEventArgs e) => Diagram.OnMouseUp(Port, e);
+        private void OnMouseUp(MouseEventArgs e) => Diagram.OnMouseUp(Port, new Core.MouseEventArgs()
+        {
+	        CtrlKey = e.CtrlKey,
+	        ClientX = e.ClientX,
+	        ClientY = e.ClientY,
+	        ShiftKey = e.ShiftKey,
+	        Button = e.Button
+        });
 
         private void OnTouchStart(TouchEventArgs e) => Diagram.OnTouchStart(Port, e);
 

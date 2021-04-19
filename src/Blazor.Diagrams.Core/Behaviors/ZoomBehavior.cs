@@ -1,5 +1,4 @@
 ﻿using Blazor.Diagrams.Core.Geometry;
-using Microsoft.AspNetCore.Components.Web;
 using System;
 
 namespace Blazor.Diagrams.Core.Behaviors

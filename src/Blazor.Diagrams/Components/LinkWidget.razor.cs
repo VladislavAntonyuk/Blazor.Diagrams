@@ -4,6 +4,10 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Blazor.Diagrams.Core.Geometry;
 using System.Collections.Generic;
+using System.Linq;
+using MouseEventArgs = Microsoft.AspNetCore.Components.Web.MouseEventArgs;
+using TouchEventArgs = Microsoft.AspNetCore.Components.Web.TouchEventArgs;
+using TouchPoint = Blazor.Diagrams.Core.TouchPoint;
 
 namespace Blazor.Diagrams.Components
 {
@@ -21,7 +25,14 @@ namespace Blazor.Diagrams.Components
                 return;
 
             var vertex = CreateVertex(e.ClientX, e.ClientY, index);
-            Diagram.OnMouseDown(vertex, e);
+            Diagram.OnMouseDown(vertex, new Core.MouseEventArgs()
+            {
+	            CtrlKey = e.CtrlKey,
+	            ClientX = e.ClientX,
+	            ClientY = e.ClientY,
+	            ShiftKey = e.ShiftKey,
+	            Button = e.Button
+            });
         }
 
         private void OnTouchStart(TouchEventArgs e, int index)
@@ -30,7 +41,21 @@ namespace Blazor.Diagrams.Components
                 return;
 
             var vertex = CreateVertex(e.ChangedTouches[0].ClientX, e.ChangedTouches[0].ClientY, index);
-            Diagram.OnTouchStart(vertex, e);
+            Diagram.OnTouchStart(vertex, new Core.TouchEventArgs()
+            {
+	            CtrlKey = e.CtrlKey,
+	            ShiftKey = e.ShiftKey,
+	            ChangedTouches = e.ChangedTouches.Select(x => new TouchPoint()
+	            {
+		            ClientY = x.ClientY,
+		            ClientX = x.ClientX,
+		            PageX = x.PageX,
+		            PageY = x.PageY,
+		            ScreenX = x.ScreenX,
+		            ScreenY = x.ScreenY,
+		            Identifier = x.Identifier
+	            }).ToArray()
+            });
         }
 
         private LinkVertexModel CreateVertex(double clientX, double clientY, int index)

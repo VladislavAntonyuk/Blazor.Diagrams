@@ -3,6 +3,10 @@ using Blazor.Diagrams.Core.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using System;
+using System.Linq;
+using MouseEventArgs = Microsoft.AspNetCore.Components.Web.MouseEventArgs;
+using TouchEventArgs = Microsoft.AspNetCore.Components.Web.TouchEventArgs;
+using TouchPoint = Blazor.Diagrams.Core.TouchPoint;
 
 namespace Blazor.Diagrams.Components
 {
@@ -44,13 +48,55 @@ namespace Blazor.Diagrams.Components
             StateHasChanged();
         }
 
-        private void OnMouseDown(MouseEventArgs e) => Diagram.OnMouseDown(Vertex, e);
+        private void OnMouseDown(MouseEventArgs e) => Diagram.OnMouseDown(Vertex, new Core.MouseEventArgs()
+        {
+	        CtrlKey = e.CtrlKey,
+	        ClientX = e.ClientX,
+	        ClientY = e.ClientY,
+	        ShiftKey = e.ShiftKey,
+	        Button = e.Button
+        });
 
-        private void OnMouseUp(MouseEventArgs e) => Diagram.OnMouseUp(Vertex, e);
+        private void OnMouseUp(MouseEventArgs e) => Diagram.OnMouseUp(Vertex, new Core.MouseEventArgs()
+        {
+	        CtrlKey = e.CtrlKey,
+	        ClientX = e.ClientX,
+	        ClientY = e.ClientY,
+	        ShiftKey = e.ShiftKey,
+	        Button = e.Button
+        });
 
-        private void OnTouchStart(TouchEventArgs e) => Diagram.OnTouchStart(Vertex, e);
+        private void OnTouchStart(TouchEventArgs e) => Diagram.OnTouchStart(Vertex, new Core.TouchEventArgs()
+        {
+	        CtrlKey = e.CtrlKey,
+	        ShiftKey = e.ShiftKey,
+	        ChangedTouches = e.ChangedTouches.Select(x => new TouchPoint()
+	        {
+		        ClientY = x.ClientY,
+		        ClientX = x.ClientX,
+		        PageX = x.PageX,
+		        PageY = x.PageY,
+		        ScreenX = x.ScreenX,
+		        ScreenY = x.ScreenY,
+		        Identifier = x.Identifier
+	        }).ToArray()
+        });
 
-        private void OnTouchEnd(TouchEventArgs e) => Diagram.OnTouchEnd(Vertex, e);
+        private void OnTouchEnd(TouchEventArgs e) => Diagram.OnTouchEnd(Vertex, new Core.TouchEventArgs()
+        {
+	        CtrlKey = e.CtrlKey,
+	        ShiftKey = e.ShiftKey,
+	        ChangedTouches = e.ChangedTouches.Select(x => new TouchPoint()
+	        {
+		        ClientY = x.ClientY,
+		        ClientX = x.ClientX,
+		        PageX = x.PageX,
+		        PageY = x.PageY,
+		        ScreenX = x.ScreenX,
+		        ScreenY = x.ScreenY,
+		        Identifier = x.Identifier
+	        }).ToArray()
+        });
 
         private void OnDoubleClick(MouseEventArgs e)
         {

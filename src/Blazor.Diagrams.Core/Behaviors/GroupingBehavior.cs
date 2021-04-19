@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Components.Web;
-using System;
-using System.Linq;
+﻿using System.Linq;
 
 namespace Blazor.Diagrams.Core.Behaviors
 {

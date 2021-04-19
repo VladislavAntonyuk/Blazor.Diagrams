@@ -4,8 +4,6 @@ using Blazor.Diagrams.Core.Geometry;
 using Blazor.Diagrams.Core.Layers;
 using Blazor.Diagrams.Core.Models;
 using Blazor.Diagrams.Core.Models.Base;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -251,10 +249,7 @@ namespace Blazor.Diagrams.Core
         }
 
         #endregion
-
-        public void RegisterModelComponent<M, C>() where M : Model where C : ComponentBase
-            => RegisterModelComponent(typeof(M), typeof(C));
-
+        
         public void RegisterModelComponent(Type modelType, Type componentType)
         {
             if (_componentByModelMapping.ContainsKey(modelType))
@@ -331,22 +326,89 @@ namespace Blazor.Diagrams.Core
             return new Point(clientX - Container.Left, clientY - Container.Top);
         }
 
-        internal void OnMouseDown(Model model, MouseEventArgs e) => MouseDown?.Invoke(model, e);
+        public void OnMouseDown(Model model, MouseEventArgs e) => MouseDown?.Invoke(model, e);
 
-        internal void OnMouseMove(Model model, MouseEventArgs e) => MouseMove?.Invoke(model, e);
+        public void OnMouseMove(Model model, MouseEventArgs e) => MouseMove?.Invoke(model, e);
 
-        internal void OnMouseUp(Model model, MouseEventArgs e) => MouseUp?.Invoke(model, e);
+        public void OnMouseUp(Model model, MouseEventArgs e) => MouseUp?.Invoke(model, e);
 
-        internal void OnKeyDown(KeyboardEventArgs e) => KeyDown?.Invoke(e);
+        public void OnKeyDown(KeyboardEventArgs e) => KeyDown?.Invoke(e);
 
-        internal void OnWheel(WheelEventArgs e) => Wheel?.Invoke(e);
+        public void OnWheel(WheelEventArgs e) => Wheel?.Invoke(e);
 
-        internal void OnMouseClick(Model model, MouseEventArgs e) => MouseClick?.Invoke(model, e);
+        public void OnMouseClick(Model model, MouseEventArgs e) => MouseClick?.Invoke(model, e);
 
-        internal void OnTouchStart(Model model, TouchEventArgs e) => TouchStart?.Invoke(model, e);
+        public void OnTouchStart(Model model, TouchEventArgs e) => TouchStart?.Invoke(model, e);
 
-        internal void OnTouchMove(Model model, TouchEventArgs e) => TouchMove?.Invoke(model, e);
+        public void OnTouchMove(Model model, TouchEventArgs e) => TouchMove?.Invoke(model, e);
 
-        internal void OnTouchEnd(Model model, TouchEventArgs e) => TouchEnd?.Invoke(model, e);
+        public void OnTouchEnd(Model model, TouchEventArgs e) => TouchEnd?.Invoke(model, e);
+    }
+
+    public class TouchEventArgs
+    {
+	    public TouchPoint[] ChangedTouches { get; set; }
+	    public bool ShiftKey { get; set; }
+	    public bool CtrlKey { get; set; }
+    }
+
+    public class TouchPoint
+    {
+	    public long Identifier { get; set; }
+	    //
+	    // Summary:
+	    //     The X coordinate of the touch point relative to the left edge of the screen.
+	    public double ScreenX { get; set; }
+	    //
+	    // Summary:
+	    //     The Y coordinate of the touch point relative to the top edge of the screen.
+	    public double ScreenY { get; set; }
+	    //
+	    // Summary:
+	    //     The X coordinate of the touch point relative to the left edge of the browser
+	    //     viewport, not including any scroll offset.
+	    public double ClientX { get; set; }
+	    //
+	    // Summary:
+	    //     The Y coordinate of the touch point relative to the top edge of the browser viewport,
+	    //     not including any scroll offset.
+	    public double ClientY { get; set; }
+	    //
+	    // Summary:
+	    //     The X coordinate of the touch point relative to the left edge of the document.
+	    //     Unlike Microsoft.AspNetCore.Components.Web.TouchPoint.ClientX, this value includes
+	    //     the horizontal scroll offset, if any.
+	    public double PageX { get; set; }
+	    //
+	    // Summary:
+	    //     The Y coordinate of the touch point relative to the top of the document. Unlike
+	    //     Microsoft.AspNetCore.Components.Web.TouchPoint.ClientY, this value includes the
+	    //     vertical scroll offset, if any.
+	    public double PageY { get; set; }
+    }
+
+    public class KeyboardEventArgs
+    {
+	    public bool AltKey { get; set; }
+	    public bool CtrlKey { get; set; }
+	    public bool ShiftKey { get; set; }
+	    public string Code { get; set; }
+	    public string Key { get; set; }
+    }
+
+    public class WheelEventArgs
+    {
+	    public double DeltaY { get; set; }
+	    public double ClientX { get; set; }
+	    public double ClientY { get; set; }
+    }
+
+    public class MouseEventArgs
+    {
+	    public double ClientX { get; set; }
+	    public double ClientY { get; set; }
+	    public long Button { get; set; }
+	    public bool ShiftKey { get; set; }
+	    public bool CtrlKey { get; set; }
     }
 }

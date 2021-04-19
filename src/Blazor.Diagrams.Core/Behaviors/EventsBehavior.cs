@@ -1,6 +1,4 @@
 ﻿using Blazor.Diagrams.Core.Models.Base;
-using Microsoft.AspNetCore.Components.Web;
-using System;
 
 namespace Blazor.Diagrams.Core.Behaviors
 {

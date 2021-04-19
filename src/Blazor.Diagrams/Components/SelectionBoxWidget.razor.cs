@@ -4,6 +4,7 @@ using Blazor.Diagrams.Core.Models.Base;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using System;
+using MouseEventArgs = Blazor.Diagrams.Core.MouseEventArgs;
 
 namespace Blazor.Diagrams.Components
 {

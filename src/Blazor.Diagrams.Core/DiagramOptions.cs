@@ -1,5 +1,4 @@
 ﻿using Blazor.Diagrams.Core.Models;
-using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.ComponentModel;
 

@@ -19,10 +19,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="3.1.4" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="..\..\ZBD.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>

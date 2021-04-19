@@ -4,6 +4,7 @@ using Blazor.Diagrams.Core.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using System;
+using MouseEventArgs = Microsoft.AspNetCore.Components.Web.MouseEventArgs;
 
 namespace Blazor.Diagrams.Components.Groups
 {
@@ -67,8 +68,22 @@ namespace Blazor.Diagrams.Components.Groups
             StateHasChanged();
         }
 
-        private void OnMouseDown(MouseEventArgs e) => Diagram.OnMouseDown(Group, e);
+        private void OnMouseDown(MouseEventArgs e) => Diagram.OnMouseDown(Group, new Core.MouseEventArgs()
+        {
+            CtrlKey = e.CtrlKey,
+            ClientX = e.ClientX,
+            ClientY = e.ClientY,
+            ShiftKey = e.ShiftKey,
+            Button = e.Button
+        });
 
-        private void OnMouseUp(MouseEventArgs e) => Diagram.OnMouseUp(Group, e);
+        private void OnMouseUp(MouseEventArgs e) => Diagram.OnMouseUp(Group, new Core.MouseEventArgs()
+        {
+	        CtrlKey = e.CtrlKey,
+	        ClientX = e.ClientX,
+	        ClientY = e.ClientY,
+	        ShiftKey = e.ShiftKey,
+	        Button = e.Button
+        });
     }
 }
